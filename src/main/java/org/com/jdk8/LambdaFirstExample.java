@@ -3,6 +3,7 @@ package org.com.jdk8;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * 从java原始方法到Lambda表达式
@@ -40,6 +41,35 @@ public class LambdaFirstExample {
          * 使用方法引用
          */
         list.sort(Comparator.comparing(Apple::getWeight));
+
+        /**
+         * 倒序
+         */
+        list.sort(Comparator.comparing(Apple::getWeight).reversed());
+
+        /**
+         * 比较器链:当重量相同时，按照颜色排序
+         */
+        list.sort(Comparator.comparing(Apple::getWeight).thenComparing(Apple::getColor));
+
+        /**
+         * 谓词复合:negate、and、or || Predicate?
+         */
+
+        /**
+         * 函数复合：
+         */
+        Function<Integer, Integer> f = x -> x + 1;
+        Function<Integer, Integer> g = x -> x * 2;
+        Function<Integer, Integer> h = f.andThen(g);// g(f(x))
+        System.err.println(h.apply(1));// ->4
+
+        Function<Integer, Integer> o = f.compose(g);// f(g(x))
+        System.err.println(o.apply(1));// ->3
+
+        Function<String, String> addHeader = Letter::addHeader;
+        Function<String, String> spelling = addHeader.andThen(Letter::checkSpelling).andThen(Letter::addFooter);
+        System.err.println(spelling.apply("abc"));
 
     }
 
