@@ -1,4 +1,4 @@
-package org.com.jdk8;
+package org.com.demo.jdk8;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -153,6 +153,18 @@ public class StreamExample {
          * 分组
          */
         Map<Dish.Type, List<Dish>> menuMap = menu.stream().collect(Collectors.groupingBy(Dish::getType));
+
+        /**
+         * 多级分组
+         */
+        Map<Dish.Type, Map<String, List<Dish>>> mulMap = menu.stream()
+                .collect(Collectors.groupingBy(Dish::getType, Collectors.groupingBy(Dish::getName)));
+
+        /**
+         * 按子组收集数据
+         */
+        menu.stream().collect(Collectors.groupingBy(Dish::getType, Collectors.counting()));
+
     }
 
 }

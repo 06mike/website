@@ -1,4 +1,4 @@
-package org.com.jdk8;
+package org.com.demo.jdk8;
 
 public class Letter {
 
